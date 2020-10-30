@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Frame from "./Frame";
+import Result from "./Result";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    result: ''
+  }
+
+  klickButton = klickName => {
+    if (klickName === '=') {
+      this.calculate()
+    } 
+    else if (klickName === 'C'){
+      this.reset()
+    }
+    else {
+    this.setState({
+      result: this.state.result + klickName
+    })};
+  };
+
+  calculate = () => {
+    this.setState ({
+      result: eval(this.state.result)
+    })
+  }
+
+  reset = () => {
+    this.setState ({
+      result: ''
+    })
+  }
+
+  render() {
+    return (
+      <>
+        <Result result={this.state.result} />
+        <Frame klickButton={this.klickButton} />
+      </>
+    );
+  }
 }
 
 export default App;
